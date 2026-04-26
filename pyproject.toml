@@ -58,7 +58,7 @@ eth = [
     "web3>=6.20,<8.0",
 ]
 dev = [
-    "pytest>=8,<9",
+    "pytest>=8,<10",
     "pytest-cov>=5,<7",
     "pytest-asyncio>=0.23,<1.0",
     "ruff>=0.6,<1.0",
