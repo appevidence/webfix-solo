@@ -1,0 +1,12 @@
+# See https://gitleaks.io for the schema.
+title = "webfix-solo gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Repo-wide allowlist"
+paths = [
+    '''(^|/)tests/fixtures/''',
+    '''(^|/)docs/''',
+]
