@@ -99,9 +99,7 @@ async def capture_url(options: CaptureOptions) -> CaptureResult:
             screenshot_path = options.out_dir / "screenshot.png"
             await page.screenshot(path=str(screenshot_path), full_page=True)
             sha, size = hash_file_with_size(screenshot_path)
-            artifacts.append(
-                ArtifactHash(filename="screenshot.png", sha256=sha, size_bytes=size)
-            )
+            artifacts.append(ArtifactHash(filename="screenshot.png", sha256=sha, size_bytes=size))
 
         # Save PDF
         if options.with_pdf:
@@ -151,9 +149,7 @@ async def run_capture(options: CaptureOptions) -> tuple[ManifestV1, Path]:
     # Optional RFC 3161 timestamp
     if options.with_rfc3161 and manifest.manifest_hash:
         try:
-            token_der = await request_timestamp(
-                manifest.manifest_hash.encode(), settings.tsa_url
-            )
+            token_der = await request_timestamp(manifest.manifest_hash.encode(), settings.tsa_url)
             manifest = manifest.model_copy(
                 update={
                     "timestamp_info": TimestampInfo(

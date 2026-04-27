@@ -14,9 +14,7 @@ from app.models import ArtifactHash
 def _make_bundle(tmp_path: Path) -> Path:
     html_content = b"<html><body>Test</body></html>"
     html_hash = hashlib.sha256(html_content).hexdigest()
-    artifacts = [
-        ArtifactHash(filename="page.html", sha256=html_hash, size_bytes=len(html_content))
-    ]
+    artifacts = [ArtifactHash(filename="page.html", sha256=html_hash, size_bytes=len(html_content))]
     manifest = build_manifest(
         url="https://example.com",
         captured_at=datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC),

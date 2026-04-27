@@ -45,9 +45,7 @@ def generate_report(bundle_contents: BundleContents, out_path: Path) -> Path:
     story.append(Spacer(1, 0.3 * cm))
 
     # User agent
-    story.append(
-        Paragraph(f"<b>User Agent:</b> {manifest.user_agent}", styles["Normal"])
-    )
+    story.append(Paragraph(f"<b>User Agent:</b> {manifest.user_agent}", styles["Normal"]))
     story.append(Spacer(1, 0.5 * cm))
 
     # Artifact hashes table
@@ -85,9 +83,7 @@ def generate_report(bundle_contents: BundleContents, out_path: Path) -> Path:
     story.append(Spacer(1, 0.3 * cm))
 
     has_signature = bool(manifest.signature_b64)
-    has_timestamp = bool(
-        manifest.timestamp_info and manifest.timestamp_info.token_b64
-    )
+    has_timestamp = bool(manifest.timestamp_info and manifest.timestamp_info.token_b64)
 
     story.append(
         Paragraph(

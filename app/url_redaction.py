@@ -33,9 +33,7 @@ def redact_url(url: str) -> str:
     try:
         parsed = urlparse(url)
         params = parse_qs(parsed.query, keep_blank_values=True)
-        redacted = {
-            k: [_REDACTED] if k.lower() in REDACT_PARAMS else v for k, v in params.items()
-        }
+        redacted = {k: [_REDACTED] if k.lower() in REDACT_PARAMS else v for k, v in params.items()}
         new_query = urlencode(redacted, doseq=True, safe="[]")
         return urlunparse(parsed._replace(query=new_query))
     except Exception:
