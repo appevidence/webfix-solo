@@ -1,10 +1,13 @@
 # Ported from appevidence/evidence-capture-app at commit b9e1e82c8fdff2fd2aaa735323e116a5e539b51a
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING, Any, TypedDict
 
 if TYPE_CHECKING:
     pass
+
+log = logging.getLogger(__name__)
 
 _DEFAULT_UA_CHROMIUM = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
@@ -48,10 +51,8 @@ async def collect_page_metadata(page: Any) -> dict[str, Any]:
         )
         status_code = response.get("status")
         content_type = response.get("contentType")
-    except Exception:  # noqa: S110
-        pass
-
-    # Collect navigation timing
+    except Exception:
+        log.debug("Could not collect response metadata from page", exc_info=True)
     timing: dict[str, float] = {}
     try:
         timing = await page.evaluate(
@@ -64,8 +65,8 @@ async def collect_page_metadata(page: Any) -> dict[str, Any]:
                 };
             }"""
         )
-    except Exception:  # noqa: S110
-        pass
+    except Exception:
+        log.debug("Could not collect navigation timing from page", exc_info=True)
 
     return PageMetadata(
         title=title or "",

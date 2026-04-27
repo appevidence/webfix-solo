@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import logging
 import zipfile
 from datetime import datetime
 from pathlib import Path
@@ -16,6 +17,8 @@ from app.metadata import build_user_agent
 from app.models import ArtifactHash, ManifestV1, TimestampInfo
 from app.timestamping import request_timestamp
 from app.utils import ensure_dir, utcnow
+
+log = logging.getLogger(__name__)
 
 
 class CaptureOptions(BaseModel):
@@ -160,8 +163,8 @@ async def run_capture(options: CaptureOptions) -> tuple[ManifestV1, Path]:
                     )
                 }
             )
-        except Exception:  # noqa: S110
-            pass
+        except Exception:
+            log.debug("RFC 3161 timestamping failed", exc_info=True)
 
     # Write manifest.json
     manifest_path = options.out_dir / "manifest.json"
