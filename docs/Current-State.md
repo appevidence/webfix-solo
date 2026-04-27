@@ -9,22 +9,22 @@ reference the source commit SHA in Repo A.
 
 ## Core (must port)
 
-- [ ] `app/capture.py` — Playwright capture (HTML, screenshot, PDF, HAR)
-- [ ] `app/hashing.py` — SHA-256 of artifacts
-- [ ] `app/manifest.py` — bundle manifest schema + builder
-- [ ] `app/signing.py` — Ed25519 sign / verify
-- [ ] `app/timestamping/` — RFC 3161 client wrapper
-- [ ] `app/verify.py` — bundle verification (signature + hashes + timestamp chain)
-- [ ] `app/audit.py` — hash-chained audit log
-- [ ] `app/audit_admin.py` — wired into `webfix audit list|verify|verify-all`
-- [ ] `app/url_redaction.py` — URL redaction in audit-log entries
-- [ ] `app/export.py` — extract bundle contents
-- [ ] `app/report.py` + `app/fonts/` — PDF report (reportlab)
-- [ ] `app/database.py` + `app/db_models.py` — **simplified to SQLite-only**;
+- [x] `app/capture.py` — Playwright capture (HTML, screenshot, PDF, HAR)
+- [x] `app/hashing.py` — SHA-256 of artifacts
+- [x] `app/manifest.py` — bundle manifest schema + builder
+- [x] `app/signing.py` — Ed25519 sign / verify
+- [x] `app/timestamping/` — RFC 3161 client wrapper
+- [x] `app/verify.py` — bundle verification (signature + hashes + timestamp chain)
+- [x] `app/audit.py` — hash-chained audit log
+- [x] `app/audit_admin.py` — wired into `webfix audit list|verify|verify-all`
+- [x] `app/url_redaction.py` — URL redaction in audit-log entries
+- [x] `app/export.py` — extract bundle contents
+- [x] `app/report.py` + `app/fonts/` — PDF report (reportlab)
+- [x] `app/database.py` + `app/db_models.py` — **simplified to SQLite-only**;
       use `Base.metadata.create_all` instead of Alembic
-- [ ] `app/config.py` — pruned to local-only options (no `TRUSTED_PROXIES`,
+- [x] `app/config.py` — pruned to local-only options (no `TRUSTED_PROXIES`,
       no session/CSRF/Basic-auth knobs, no rate-limit knobs, no OTel knobs)
-- [ ] `app/models.py`, `app/metadata.py`, `app/http_utils.py`, `app/retry.py`,
+- [x] `app/models.py`, `app/metadata.py`, `app/http_utils.py`, `app/retry.py`,
       `app/utils.py`
 
 ## Optional extras (port behind feature flags)
