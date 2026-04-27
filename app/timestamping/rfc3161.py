@@ -2,8 +2,11 @@
 from __future__ import annotations
 
 import hashlib
+import logging
 
 import httpx
+
+log = logging.getLogger(__name__)
 
 try:
     import rfc3161_client as _rfc3161  # type: ignore[import]
@@ -63,6 +66,10 @@ async def request_timestamp(data: bytes, tsa_url: str) -> bytes:
             req = _rfc3161.TimeStampRequest.from_data(data)  # type: ignore[attr-defined]
             req_der = req.as_der()
         except Exception:
+            log.debug(
+                "rfc3161_client failed to build timestamp request, using fallback",
+                exc_info=True,
+            )
             req_der = _build_timestamp_request(data)
     else:
         req_der = _build_timestamp_request(data)

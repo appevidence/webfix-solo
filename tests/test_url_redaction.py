@@ -38,7 +38,7 @@ def test_redact_auth_from_url_strips_userinfo():
     result = redact_auth_from_url(url)
     assert "user" not in result
     assert "pass" not in result
-    assert result.startswith("https://example.com")
+    assert result == "https://example.com/path"
 
 
 def test_redact_auth_from_url_no_auth():

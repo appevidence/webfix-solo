@@ -3,11 +3,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
 from pydantic import BaseModel
+
+log = logging.getLogger(__name__)
 
 
 class AuditEntry(BaseModel):
@@ -96,8 +99,8 @@ class AuditLog:
                 if stripped:
                     try:
                         entries.append(AuditEntry.model_validate_json(stripped))
-                    except Exception:  # noqa: S110
-                        pass
+                    except Exception:
+                        log.debug("Failed to parse audit entry", exc_info=True)
         return entries[-limit:]
 
     def verify_chain(self) -> tuple[bool, list[str]]:
@@ -149,8 +152,8 @@ class AuditLog:
                 if stripped:
                     try:
                         entries.append(AuditEntry.model_validate_json(stripped))
-                    except Exception:  # noqa: S110
-                        pass
+                    except Exception:
+                        log.debug("Failed to parse audit entry", exc_info=True)
 
         for i, entry in enumerate(entries):
             if entry.entry_id != entry_id:
