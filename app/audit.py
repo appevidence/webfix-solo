@@ -61,7 +61,7 @@ class AuditLog:
                             data = json.loads(stripped)
                             last = data.get("entry_hash")
                         except json.JSONDecodeError:
-                            pass
+                            log.debug("Failed to parse audit log line while reading last hash", exc_info=True)
         return last
 
     def append(
