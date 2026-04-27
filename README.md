@@ -26,6 +26,9 @@ Each capture produces a bundle containing:
 
 > ⚠️ **Pre-alpha.** The CLI surface is wired up but the capture / signing / verify modules are still being ported from Repo A. See [`docs/Current-State.md`](docs/Current-State.md) for the port checklist.
 
+> 📖 **Подробное руководство (RU)** по установке, развёртыванию, настройке и запуску для технического персонала и для пользователя-юриста, в GitHub Codespaces и на Ubuntu 24.04 локально — см. [`docs/УСТАНОВКА.md`](docs/УСТАНОВКА.md).
+> The repo also ships a [`.devcontainer/`](.devcontainer/devcontainer.json) so GitHub Codespaces is a one-click setup.
+
 ```bash
 pip install webfix-solo
 playwright install chromium

@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# webfix-solo: local data dir + Playwright browsers cache (used in devcontainer)
+.webfix-data/
+.ms-playwright/
