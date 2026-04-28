@@ -83,7 +83,13 @@ def _abort(msg: str, code: int = 1) -> typer.Exit:
 
 
 def _read_passphrase_from_stdin() -> bytes | None:
-    """Read a passphrase from stdin (one line). Empty input means no passphrase."""
+    """Read a single-line passphrase from stdin.
+
+    Returns the bytes of the passphrase, or ``None`` if stdin was empty / EOF.
+    Empty passphrases are not allowed because they would silently produce an
+    unencrypted key — the caller must explicitly omit ``--key-password-stdin``
+    to do that.
+    """
     raw = sys.stdin.readline()
     pw = raw.rstrip("\n").rstrip("\r")
     return pw.encode() if pw else None
@@ -178,7 +184,7 @@ def init(
 
     _console.print("  [green]✓[/green] keypair generated:    " f"[dim]{private_path}[/dim]")
     _console.print("  [green]✓[/green] public key written:   " f"[dim]{public_path}[/dim]")
-    _console.print("  [green]✓[/green] sqlite db initialised:" f" [dim]{db_path}[/dim]")
+    _console.print("  [green]✓[/green] sqlite db initialized:" f" [dim]{db_path}[/dim]")
     _console.print("  [green]✓[/green] audit log seeded:     " f"[dim]{audit_log_path}[/dim]")
 
 
