@@ -24,7 +24,7 @@ Each capture produces a bundle containing:
 
 ## Install
 
-> ⚠️ **Pre-alpha.** The CLI surface is wired up but the capture / signing / verify modules are still being ported from Repo A. See [`docs/Current-State.md`](docs/Current-State.md) for the port checklist.
+> ⚠️ **Pre-alpha.** Core capture / signing / verify / audit / export / report commands are wired and covered by tests. Optional extras (`--with-ots`, `--with-wayback`, `--with-eth`) are not yet implemented and currently emit a warning when requested. See [`docs/Current-State.md`](docs/Current-State.md) for the full status matrix.
 
 > 📖 **Подробное руководство (RU)** по установке, развёртыванию, настройке и запуску для технического персонала и для пользователя-юриста, в GitHub Codespaces и на Ubuntu 24.04 локально — см. [`docs/УСТАНОВКА.md`](docs/УСТАНОВКА.md).
 > The repo also ships a [`.devcontainer/`](.devcontainer/devcontainer.json) so GitHub Codespaces is a one-click setup.

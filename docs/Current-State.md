@@ -1,11 +1,34 @@
 # Current State
 
-`webfix-solo` is being bootstrapped as **Repo C** of the evidence-capture three-repo split.
-The CLI surface is fully wired up (run `webfix --help`); the underlying modules are being
-ported from Repo A (`appevidence/evidence-capture-app`) with the web layer stripped out.
+`webfix-solo` is **Repo C** of the evidence-capture three-repo split (the term
+"Repo A" everywhere in this repo refers to the upstream
+[`appevidence/evidence-capture-app`](https://github.com/appevidence/evidence-capture-app),
+from which the core capture / signing / verify modules were ported with the web
+layer removed). See the *Related projects* table in the root `README.md` for the
+full A / B / C map.
 
-This document tracks port progress. PRs that move an item from `[ ]` to `[x]` should
-reference the source commit SHA in Repo A.
+The CLI surface (`webfix --help`) is fully wired to the ported modules under
+`app/*`. PRs that move an item from `[ ]` to `[x]` should reference the source
+commit SHA in Repo A (each ported module already carries a
+`# Ported from appevidence/evidence-capture-app at commit …` header).
+
+## CLI wiring (Repo C)
+
+Every command is now a thin shell over a ported `app.*` module — no
+sub-command exits with the legacy "not yet ported" message any more.
+
+| Command            | Backed by                                                                |
+|--------------------|--------------------------------------------------------------------------|
+| `webfix init`      | `app.signing.generate_keypair`, `app.database.init_db`, `app.audit`      |
+| `webfix capture`   | `app.capture.run_capture` + `app.audit` (URL is redacted before logging) |
+| `webfix verify`    | `app.verify.verify_bundle` (exits 1 on hash/signature failure)           |
+| `webfix export`    | `app.export.export_bundle`                                               |
+| `webfix report`    | `app.report.render_report_from_bundle`                                   |
+| `webfix audit …`   | `app.audit_admin` (`list`, `verify`, `verify-all`)                       |
+
+`tests/test_cli.py` covers each of the above end to end (the `capture`
+pipeline is exercised with a fake `run_capture` so the test suite does not
+require a real browser).
 
 ## Core (must port)
 
@@ -31,6 +54,10 @@ reference the source commit SHA in Repo A.
 
 - [ ] `app/wayback.py` — `--with-wayback`
 - [ ] `app/blockchain.py` — `--with-ots` (default extra) and `--with-eth` (`[eth]` extra)
+
+While these flags are not yet implemented, passing them to `webfix capture`
+emits a yellow warning on stderr and the capture proceeds **without** the
+requested extra, instead of failing.
 
 ## Explicitly **not** ported (web layer; belongs to Repo A / B)
 
