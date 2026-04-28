@@ -98,7 +98,10 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S", "PLR"]
+"tests/*" = ["S", "PLR", "PLC0415"]
+# CLI commands deliberately use lazy imports so `webfix --help` stays fast
+# (otherwise every invocation would pay for Playwright / reportlab import time).
+"webfix/cli.py" = ["PLC0415"]
 
 [tool.pytest.ini_options]
 minversion = "8.0"
