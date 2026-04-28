@@ -182,10 +182,10 @@ def init(
     log = AuditLog(audit_log_path)
     log.append(action="init")
 
-    _console.print("  [green]✓[/green] keypair generated:    " f"[dim]{private_path}[/dim]")
-    _console.print("  [green]✓[/green] public key written:   " f"[dim]{public_path}[/dim]")
-    _console.print("  [green]✓[/green] sqlite db initialized:" f" [dim]{db_path}[/dim]")
-    _console.print("  [green]✓[/green] audit log seeded:     " f"[dim]{audit_log_path}[/dim]")
+    _console.print(f"  [green]✓[/green] keypair generated:    [dim]{private_path}[/dim]")
+    _console.print(f"  [green]✓[/green] public key written:   [dim]{public_path}[/dim]")
+    _console.print(f"  [green]✓[/green] sqlite db initialized: [dim]{db_path}[/dim]")
+    _console.print(f"  [green]✓[/green] audit log seeded:     [dim]{audit_log_path}[/dim]")
 
 
 # --------------------------------------------------------------------------- #

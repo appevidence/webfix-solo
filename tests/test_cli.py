@@ -253,9 +253,7 @@ def test_audit_list_empty(tmp_path: Path) -> None:
 def test_audit_verify_single(tmp_path: Path) -> None:
     data_dir = tmp_path / "data"
     ids = _seed_audit(data_dir)
-    result = runner.invoke(
-        app, ["audit", "verify", ids[1], "--data-dir", str(data_dir)]
-    )
+    result = runner.invoke(app, ["audit", "verify", ids[1], "--data-dir", str(data_dir)])
     assert result.exit_code == 0, result.stderr or result.output
     assert "valid" in result.output.lower()
 
@@ -264,9 +262,7 @@ def test_audit_verify_unknown_id(tmp_path: Path) -> None:
     data_dir = tmp_path / "data"
     _seed_audit(data_dir)
     missing = "00000000-0000-0000-0000-000000000000"
-    result = runner.invoke(
-        app, ["audit", "verify", missing, "--data-dir", str(data_dir)]
-    )
+    result = runner.invoke(app, ["audit", "verify", missing, "--data-dir", str(data_dir)])
     assert result.exit_code == 1
     assert "not found" in (result.stderr or "").lower()
 
@@ -370,9 +366,7 @@ def test_capture_writes_bundle_and_audit(tmp_path: Path, monkeypatch: pytest.Mon
     assert opts.timeout_ms == 60_000
 
 
-def test_capture_warns_on_unported_extras(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_capture_warns_on_unported_extras(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     data_dir = tmp_path / "data"
     runner.invoke(app, ["init", "--data-dir", str(data_dir)])
 
@@ -413,9 +407,7 @@ def test_capture_warns_on_unported_extras(
     assert "--with-eth" in stderr
 
 
-def test_capture_propagates_failure(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_capture_propagates_failure(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     data_dir = tmp_path / "data"
     runner.invoke(app, ["init", "--data-dir", str(data_dir)])
 
@@ -427,8 +419,6 @@ def test_capture_propagates_failure(
 
     monkeypatch.setattr(app_capture, "run_capture", boom)
 
-    result = runner.invoke(
-        app, ["capture", "https://example.com", "--data-dir", str(data_dir)]
-    )
+    result = runner.invoke(app, ["capture", "https://example.com", "--data-dir", str(data_dir)])
     assert result.exit_code == 1
     assert "capture failed" in (result.stderr or "").lower()
