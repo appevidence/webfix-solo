@@ -27,20 +27,29 @@ Each capture produces a bundle containing:
 > ⚠️ **Pre-alpha.** Core capture / signing / verify / audit / export / report commands are wired and covered by tests. Optional extras (`--with-ots`, `--with-wayback`, `--with-eth`) are not yet implemented and currently emit a warning when requested. See [`docs/Current-State.md`](docs/Current-State.md) for the full status matrix.
 
 > 📖 **Подробное руководство (RU)** по установке, развёртыванию, настройке и запуску для технического персонала и для пользователя-юриста, в GitHub Codespaces и на Ubuntu 24.04 локально — см. [`docs/УСТАНОВКА.md`](docs/УСТАНОВКА.md).
-> The repo also ships a [`.devcontainer/`](.devcontainer/devcontainer.json) so GitHub Codespaces is a one-click setup.
+> The repo also ships a [`.devcontainer/`](.devcontainer/devcontainer.json) so GitHub Codespaces is a one-click setup (see section A of `docs/УСТАНОВКА.md`).
+
+`webfix-solo` is **not on PyPI yet** (pre-alpha). Install from source:
 
 ```bash
-pip install webfix-solo
-playwright install chromium
+git clone https://github.com/appevidence/webfix-solo.git
+cd webfix-solo
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install --upgrade pip
+pip install -e ".[ots]"
+python -m playwright install --with-deps chromium   # needs sudo on Ubuntu for --with-deps
 ```
 
-Optional extras:
+Optional extras (combine with commas, e.g. `".[dev,ots,wayback]"`):
 
-```bash
-pip install "webfix-solo[ots]"      # OpenTimestamps proofs
-pip install "webfix-solo[wayback]"  # Wayback Machine submission
-pip install "webfix-solo[eth]"      # Ethereum anchoring (advanced; needs a key and gas)
-```
+| Extra      | What it adds                                                  |
+|------------|---------------------------------------------------------------|
+| `ots`      | OpenTimestamps proofs (`--with-ots`)                          |
+| `wayback`  | Wayback Machine submission (`--with-wayback`)                 |
+| `eth`      | Ethereum anchoring (`--with-eth`); requires a key and gas     |
+| `dev`      | `pytest`, `ruff`, `mypy`, `pre-commit` for contributors       |
+
+For step-by-step instructions tailored to GitHub Codespaces and Ubuntu 24.04 LTS (including a non-technical track for end users), see [`docs/УСТАНОВКА.md`](docs/УСТАНОВКА.md).
 
 ## Usage
 
