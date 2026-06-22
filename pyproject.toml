@@ -46,7 +46,7 @@ dependencies = [
     "pydantic-settings>=2.0,<3.0",
     "typer>=0.12,<1.0",
     "rich>=13.7,<16.0",
-    "reportlab>=4.2,<5.0",
+    "reportlab>=4.2,<6.0",
     "tenacity>=8,<10",
 ]
 
