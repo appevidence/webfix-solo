@@ -57,7 +57,7 @@ wayback = []  # uses httpx; flag-gated, no extra runtime deps required
 eth = [
     # Ethereum anchoring is intentionally an opt-in extra. ~95% of solo users
     # have neither a key nor gas; do not pay the dependency cost by default.
-    "web3>=6.20,<8.0",
+    "web3>=6.20,<9.0",
 ]
 dev = [
     "pytest>=8,<10",
